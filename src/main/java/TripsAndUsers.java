@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class SqlQuestions {
+public class TripsAndUsers {
     public static void main(String[] args) {
         Logger.getLogger("org.apache").setLevel(Level.WARN);
         SparkSession spark = SparkSession.builder()
