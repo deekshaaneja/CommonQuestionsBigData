@@ -13,6 +13,15 @@ import org.apache.spark.sql.types.StructType;
 import java.awt.*;
 import java.nio.file.Paths;
 
+/*
+https://leetcode.com/problems/exchange-seats/
+SQL Schema
+Mary is a teacher in a middle school and she has a table seat storing students' names and their corresponding seat ids.
+The column id is continuous increment.
+Mary wants to change seats for the adjacent students.
+Can you write a SQL query to output the result for Mary?
+ */
+
 import static org.apache.spark.sql.functions.*;
 
 public class ExchangeSeats {
