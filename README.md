@@ -9,3 +9,6 @@ https://leetcode.com/problems/human-traffic-of-stadium/
 
 ## Department Top Three Salaries
 https://leetcode.com/problems/department-top-three-salaries/
+
+## Exchange Seats 
+https://leetcode.com/problems/exchange-seats/
