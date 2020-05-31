@@ -2,11 +2,12 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.*;
-import org.apache.spark.util.Benchmark;
+import org.apache.spark.sql.streaming.StreamingQuery;
 import scala.reflect.ClassTag$;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 //Trips and Users with Spark.
@@ -32,11 +33,14 @@ public class TripsAndUsers {
                 .option("multiline", true)
                 .csv("C:\\Users\\admin\\Documents\\GitHub\\educate_problems\\pyspark\\input_data\\trips_and_users\\users.csv");
         HashSet<String> setBannedUsers = new HashSet();
-        Object[] bannedUsers = dfUsers.filter(dfUsers.col("Banned").$eq$eq$eq("Yes")).select(functions.collect_list("Users_Id"))
-                .first().getList(0).toArray();
-        for (int i = 0; i < bannedUsers.length; i++) {
-            setBannedUsers.add((String) bannedUsers[i]);
+        List<Object> bannedUsers = dfUsers.filter(dfUsers.col("Banned").$eq$eq$eq("Yes")).select(functions.collect_list("Users_Id"))
+                .first().getList(0);
+        System.out.println(bannedUsers);
+
+        for (int i = 0; i < bannedUsers.size(); i++) {
+            setBannedUsers.add((String) bannedUsers.get(i));
         }
+
 //        System.out.println(bannedUsers);
         Broadcast<HashSet> usersBroadcast = spark.sparkContext().broadcast(setBannedUsers, ClassTag$.MODULE$.apply(HashSet.class));
 
