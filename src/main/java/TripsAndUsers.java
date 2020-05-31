@@ -5,6 +5,7 @@ import org.apache.spark.sql.*;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import scala.reflect.ClassTag$;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,6 +16,10 @@ import java.util.List;
 
 public class TripsAndUsers {
     public static void main(String[] args) {
+        String inputPath = Paths.get(".", "src", "main", "resources", "input_data", "trips_and_users").toString();
+        String tripsPath = Paths.get(inputPath, "trips.csv").toString();
+        String usersPath = Paths.get(inputPath, "users.csv").toString();
+
         Logger.getLogger("org.apache").setLevel(Level.WARN);
         SparkSession spark = SparkSession.builder()
                 .appName("Combine 2 datasets")
@@ -22,16 +27,16 @@ public class TripsAndUsers {
                 .config("spark.sql.warehouse.dir", "file:///c:/tmp/")
                 .config("spark.driver.host", "127.0.0.1")
                 .getOrCreate();
-        getCancellationRate(spark);
+        getCancellationRate(spark, tripsPath, usersPath);
     }
-    public static void getCancellationRate(SparkSession spark){
+    public static void getCancellationRate(SparkSession spark, String tripsPath, String usersPath){
         Dataset<Row> dfTrips = spark.read().option("header", true)
                     .option("multiline", true)
-                    .csv("C:\\Users\\admin\\Documents\\GitHub\\educate_problems\\pyspark\\input_data\\trips_and_users\\trips.csv");
+                    .csv(tripsPath);
         Dataset<Row> dfUsers = spark
                 .read().option("header", true)
                 .option("multiline", true)
-                .csv("C:\\Users\\admin\\Documents\\GitHub\\educate_problems\\pyspark\\input_data\\trips_and_users\\users.csv");
+                .csv(usersPath);
         HashSet<String> setBannedUsers = new HashSet();
         List<Object> bannedUsers = dfUsers.filter(dfUsers.col("Banned").$eq$eq$eq("Yes")).select(functions.collect_list("Users_Id"))
                 .first().getList(0);
