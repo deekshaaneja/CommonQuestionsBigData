@@ -52,8 +52,6 @@ public class TripsAndUsers {
         df.show();
 
 
-
-
     }
 
 }
