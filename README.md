@@ -1,4 +1,4 @@
-# DatabricksBigData
+# Common Questions using Spark
 
 This Repo contains solutions for common Data Engineering Questions using Spark 
 ## Trips and Users Problem-
