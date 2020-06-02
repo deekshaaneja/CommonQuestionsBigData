@@ -32,7 +32,7 @@ public class NthHighestSalary {
                 .option("header", true)
                 .option("multiline", true)
                 .csv(salaryPath);
-        WindowSpec wind = Window.orderBy("Salary");
+        WindowSpec wind = Window.orderBy(functions.col("Salary").desc());
         Column winCol = functions.dense_rank().over(wind);
         dfSalary.select(functions.col("Salary").alias("NthHighestSalary"), winCol.alias("rank"))
                 .filter(functions.col("rank").$eq$eq$eq(n))
