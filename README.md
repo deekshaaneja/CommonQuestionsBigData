@@ -20,3 +20,7 @@ https://leetcode.com/problems/exchange-seats/
 ## The Report
 https://www.hackerrank.com/challenges/the-report/problem
 #### Solution - Report.java
+
+## Nth Highest Salary
+https://leetcode.com/problems/nth-highest-salary/
+#### Solution - NthHighestSalary.java
